@@ -84,8 +84,8 @@ resource "aws_route_table_association" "hashiapp" {
 
 data "aws_ami" "centbase" {
   filter {
-    name   = "product-code"
-    values = ["aw0evgkw8e5c1q413zgy5pjce"]
+    name   = "name"
+    values = ["CentOS-7-2111-20220825_1.x86_64-d9a3032a-921c-4c6d-b150-bde168105e42"]
   }
   filter {
     name   = "virtualization-type"
