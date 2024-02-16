@@ -83,17 +83,7 @@ resource "aws_route_table_association" "hashiapp" {
 }
 
 data "aws_ami" "centbase" {
-  filter {
-    name   = "name"
-    values = ["CentOS-7-2111-20220825_1.x86_64-d9a3032a-921c-4c6d-b150-bde168105e42"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  most_recent = true
-  owners      = ["679593333241"]
+  image_id = "ami-01e82af4e524a0aa3"
 }
 
 resource "aws_instance" "hashiapp" {
