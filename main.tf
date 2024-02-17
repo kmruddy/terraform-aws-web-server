@@ -83,7 +83,16 @@ resource "aws_route_table_association" "hashiapp" {
 }
 
 data "aws_ami" "centbase" {
-  image_id = "ami-01e82af4e524a0aa3"
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  most_recent = true
 }
 
 resource "aws_instance" "hashiapp" {
