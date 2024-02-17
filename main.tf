@@ -85,7 +85,7 @@ resource "aws_route_table_association" "hashiapp" {
 data "aws_ami" "centbase" {
   filter {
     name   = "name"
-    values = ["Amazon Linux 2023 AMI 2023.3.20240205.2 x86_64 HVM kernel-6.1"]
+    values = ["al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"]
   }
   filter {
     name   = "virtualization-type"
