@@ -22,8 +22,3 @@ variable "instance_type" {
   description = "Specifies the AWS instance type."
   default     = "t2.micro"
 }
-
-variable "key_name" {
-  description = "The key name of the Key Pair to use for the instance"
-  default     = "ruddy-packer-demo"
-}
