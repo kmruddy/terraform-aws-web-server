@@ -1,3 +1,7 @@
+provider "aws" {
+  region = var.region
+}
+
 resource "aws_vpc" "hashiapp" {
   cidr_block           = var.address_space
   enable_dns_hostnames = true
@@ -83,22 +87,8 @@ resource "aws_key_pair" "deployer" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3F6tyPEFEzV0LX3X8BsXdMsQz1x2cEikKDEY0aIj41qgxMCP/iteneqXSIFZBp5vizPvaoIR3Um9xK7PGoW8giupGn+EPuxIA4cDM4vzOqOkiMPhz5XK0whEjkVzTo4+S0puvDZuwIsdiW9mxhJc7tgBNL0cYlWSYVkz4G/fslNfRPW5mYAM49f4fhtxPb5ok4Q2Lg9dPKVHO/Bgeu5woMc7RY0p1ej6D4CKFE6lymSDJpW0YHX/wqE9+cfEauh7xZcG0q9t2ta6F6fmX0agvpFyZo8aFbXeUBr7osSCJNgvavWbM/06niWrOvYX2xwWdhXmXSrbX8ZbabVohBK41 email@example.com"
 }
 
-data "aws_ami" "centbase" {
-  filter {
-    name   = "product-code"
-    values = ["aw0evgkw8e5c1q413zgy5pjce"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  most_recent = true
-  owners      = ["679593333241"]
-}
-
 resource "aws_instance" "hashiapp" {
-  ami                         = data.aws_ami.centbase.id
+  ami                         = "ami-04999cd8f2624f834"
   instance_type               = var.instance_type
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.hashiapp.id
@@ -112,7 +102,7 @@ resource "aws_instance" "hashiapp" {
 
 resource "aws_eip" "hashiapp" {
   instance = aws_instance.hashiapp.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_eip_association" "hashiapp" {
