@@ -82,21 +82,8 @@ resource "aws_route_table_association" "hashiapp" {
   route_table_id = aws_route_table.hashiapp.id
 }
 
-data "aws_ami" "centbase" {
-  filter {
-    name   = "name"
-    values = ["al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  most_recent = true
-}
-
 resource "aws_instance" "hashiapp" {
-  ami                         = data.aws_ami.centbase.id
+  ami                         = "ami-04999cd8f2624f834"
   instance_type               = var.instance_type
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.hashiapp.id
@@ -110,7 +97,7 @@ resource "aws_instance" "hashiapp" {
 
 resource "aws_eip" "hashiapp" {
   instance = aws_instance.hashiapp.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_eip_association" "hashiapp" {
